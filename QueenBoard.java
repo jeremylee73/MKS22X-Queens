@@ -15,6 +15,34 @@ public class QueenBoard {
         }
       }
     }
+    for (int rowsLeft = r; rowsLeft<size-r; rowsLeft++){
+      for (int colsLeft = c; colsLeft<size-c; colsLeft++){
+        if (rowsLeft-r == colsLeft-c){
+          board[rowsLeft][colsLeft] += 1;
+        }
+      }
+    }
+    for (int rowsLeft = r; rowsLeft<size-r; rowsLeft++){
+      for (int colsLeft = c; colsLeft>=0; colsLeft--){
+        if (rowsLeft-r == Math.abs(colsLeft-c)){
+          board[rowsLeft][colsLeft] += 1;
+        }
+      }
+    }
+    for (int rowsLeft = r; rowsLeft>=0; rowsLeft--){
+      for (int colsLeft = c; colsLeft<size-c; colsLeft++){
+        if (Math.abs(rowsLeft-r) == colsLeft-c){
+          board[rowsLeft][colsLeft] += 1;
+        }
+      }
+    }
+    for (int rowsLeft = r; rowsLeft>=0; rowsLeft--){
+      for (int colsLeft = c; colsLeft>=0; colsLeft--){
+        if (Math.abs(rowsLeft-r) == Math.abs(colsLeft-c)){
+          board[rowsLeft][colsLeft] += 1;
+        }
+      }
+    }
     board[r][c] = -1;
     return true;
   }
