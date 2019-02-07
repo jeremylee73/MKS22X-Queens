@@ -48,6 +48,42 @@ public class QueenBoard {
   }
 
   private boolean removeQueen(int r, int c){
+    for (int row=0; row<size; row++){
+      for (int col=0; col<size; col++){
+        if (row == r || col == c){
+          board[row][col] -= 1;
+        }
+      }
+    }
+    for (int rowsLeft = r; rowsLeft<size-r; rowsLeft++){
+      for (int colsLeft = c; colsLeft<size-c; colsLeft++){
+        if (rowsLeft-r == colsLeft-c){
+          board[rowsLeft][colsLeft] -= 1;
+        }
+      }
+    }
+    for (int rowsLeft = r; rowsLeft<size-r; rowsLeft++){
+      for (int colsLeft = c; colsLeft>=0; colsLeft--){
+        if (rowsLeft-r == Math.abs(colsLeft-c)){
+          board[rowsLeft][colsLeft] -= 1;
+        }
+      }
+    }
+    for (int rowsLeft = r; rowsLeft>=0; rowsLeft--){
+      for (int colsLeft = c; colsLeft<size-c; colsLeft++){
+        if (Math.abs(rowsLeft-r) == colsLeft-c){
+          board[rowsLeft][colsLeft] -= 1;
+        }
+      }
+    }
+    for (int rowsLeft = r; rowsLeft>=0; rowsLeft--){
+      for (int colsLeft = c; colsLeft>=0; colsLeft--){
+        if (Math.abs(rowsLeft-r) == Math.abs(colsLeft-c)){
+          board[rowsLeft][colsLeft] -= 1;
+        }
+      }
+    }
+    board[r][c] = 0;
     return true;
   }
 
@@ -69,10 +105,8 @@ public class QueenBoard {
       for (int col = 0; col<size; col++){
         if (board[row][col] == -1){
           ans += "Q";
-        } else if (board[row][col] == 0){
-          ans += "_";
         } else {
-          ans += "*";
+          ans += "_";
         }
       }
       ans += "\n";
@@ -87,6 +121,7 @@ public class QueenBoard {
   */
   public boolean solve(){
     addQueen(1, 1);
+    removeQueen(1,1);
     return true;
   }
 
