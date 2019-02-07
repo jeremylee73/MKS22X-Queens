@@ -64,7 +64,20 @@ public class QueenBoard {
   *excludes the character up to the *)
   */
   public String toString(){
-    return "";
+    String ans = "";
+    for (int row = 0; row<size; row++){
+      for (int col = 0; col<size; col++){
+        if (board[row][col] == -1){
+          ans += "Q";
+        } else if (board[row][col] == 0){
+          ans += "_";
+        } else {
+          ans += "*";
+        }
+      }
+      ans += "\n";
+    }
+    return ans;
   }
 
   /**
