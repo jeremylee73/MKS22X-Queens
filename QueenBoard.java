@@ -1,11 +1,21 @@
 public class QueenBoard {
   private int[][]board;
+  private int size;
 
   public QueenBoard(int size){
-
+    board = new int[size][size];
+    this.size = size;
   }
 
   private boolean addQueen(int r, int c){
+    for (int row=0; row<size; row++){
+      for (int col=0; col<size; col++){
+        if (row == r || col == c){
+          board[row][col] += 1;
+        }
+      }
+    }
+    board[r][c] = -1;
     return true;
   }
 
