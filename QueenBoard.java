@@ -86,6 +86,7 @@ public class QueenBoard {
   *@throws IllegalStateException when the board starts with any non-zero value
   */
   public boolean solve(){
+    addQueen(1, 1);
     return true;
   }
 
