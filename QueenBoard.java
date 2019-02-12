@@ -14,8 +14,10 @@ public class QueenBoard {
     board[r][c] = -1;
     for (int row = 0; row < board.length; row++) {
       for (int col = c; col < board.length; col++) {
-        if ((row == r || Math.abs(r-row) == Math.abs(c-col) || col == c) && board[row][col] != -1) {
-          board[row][col] += 1;
+        if (row == r || Math.abs(r-row) == Math.abs(c-col) || col == c) {
+          if (board[row][col] != -1){
+            board[row][col] += 1;
+          }
         }
       }
     }
@@ -29,8 +31,10 @@ public class QueenBoard {
     board[r][c] = 0;
     for (int row=0; row<board.length; row++) {
       for (int col=c; col<board.length; col++) {
-        if ((row == r || Math.abs(r-row) == Math.abs(c-col) || col == c) && !(row == r && col == c)) {
-          board[row][col] -= 1;
+        if (row == r || Math.abs(r-row) == Math.abs(c-col) || col == c){
+          if (!(row == r && col == c)){
+            board[row][col] -= 1;
+          }
         }
       }
     }
@@ -93,6 +97,20 @@ public class QueenBoard {
   *@throws IllegalStateException when the board starts with any non-zero value
   */
   public int countSolutions(){
-    return 0;
+    return csH(0);
+  }
+
+  private int csH(int c){
+    if (c == size){
+      return 1;
+    }
+    int ans = 0;
+    for (int row = 0; row < size; row++){
+      if (addQueen(row, c)){
+        ans += csH(c+1);
+      }
+      removeQueen(row, c);
+    }
+    return ans;
   }
 }
