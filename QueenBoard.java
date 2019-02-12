@@ -53,14 +53,11 @@ public class QueenBoard {
     String ans = "";
     for (int row = 0; row<size; row++){
       for (int col = 0; col<size; col++){
-        ans += board[row][col];
-        // if (board[row][col] < -10){
-        //   ans += "Q";
-        // } else if (board[row][col] == 0){
-        //   ans += "_";
-        // } else {
-        //   ans += board[row][col];
-        // }
+        if (board[row][col] == -1){
+          ans += "Q";
+        } else {
+          ans += "_";
+        }
       }
       ans += "\n";
     }
