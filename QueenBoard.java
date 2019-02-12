@@ -7,46 +7,18 @@ public class QueenBoard {
     this.size = size;
   }
 
-  private boolean addQueen(int r, int c){
-    if (board[r][c] != 0){
+  private boolean addQueen(int r, int c) {
+    if (board[r][c] != 0) {
       return false;
     }
-    for (int row=0; row<size; row++){
-      for (int col=0; col<size; col++){
-        if (row == r || col == c){
+    board[r][c] = -1;
+    for (int row = 0; row < board.length; row++) {
+      for (int col = c; col < board.length; col++) {
+        if ((row == r || Math.abs(r-row) == Math.abs(c-col) || col == c) && board[row][col] != -1) {
           board[row][col] += 1;
         }
       }
     }
-    for (int rowsLeft = r; rowsLeft<size-r; rowsLeft++){
-      for (int colsLeft = c; colsLeft<size-c; colsLeft++){
-        if (rowsLeft-r == colsLeft-c){
-          board[rowsLeft][colsLeft] += 1;
-        }
-      }
-    }
-    for (int rowsLeft = r; rowsLeft<size-r; rowsLeft++){
-      for (int colsLeft = c; colsLeft>=0; colsLeft--){
-        if (rowsLeft-r == Math.abs(colsLeft-c)){
-          board[rowsLeft][colsLeft] += 1;
-        }
-      }
-    }
-    for (int rowsLeft = r; rowsLeft>=0; rowsLeft--){
-      for (int colsLeft = c; colsLeft<size-c; colsLeft++){
-        if (Math.abs(rowsLeft-r) == colsLeft-c){
-          board[rowsLeft][colsLeft] += 1;
-        }
-      }
-    }
-    for (int rowsLeft = r; rowsLeft>=0; rowsLeft--){
-      for (int colsLeft = c; colsLeft>=0; colsLeft--){
-        if (Math.abs(rowsLeft-r) == Math.abs(colsLeft-c)){
-          board[rowsLeft][colsLeft] += 1;
-        }
-      }
-    }
-    board[r][c] = -1;
     return true;
   }
 
