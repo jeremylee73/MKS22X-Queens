@@ -8,6 +8,9 @@ public class QueenBoard {
   }
 
   private boolean addQueen(int r, int c){
+    if (board[r][c] != 0){
+      return false;
+    }
     for (int row=0; row<size; row++){
       for (int col=0; col<size; col++){
         if (row == r || col == c){
@@ -43,11 +46,14 @@ public class QueenBoard {
         }
       }
     }
-    board[r][c] -= 105;
+    board[r][c] = -1;
     return true;
   }
 
   private boolean removeQueen(int r, int c){
+    if (board[r][c] != -1){
+      return false;
+    }
     for (int row=0; row<size; row++){
       for (int col=0; col<size; col++){
         if (row == r || col == c){
@@ -83,7 +89,7 @@ public class QueenBoard {
         }
       }
     }
-    board[r][c] += 105;
+    board[r][c] += 6;
     return true;
   }
 
@@ -103,13 +109,14 @@ public class QueenBoard {
     String ans = "";
     for (int row = 0; row<size; row++){
       for (int col = 0; col<size; col++){
-        if (board[row][col] < -10){
-          ans += "Q";
-        } else if (board[row][col] == 0){
-          ans += "_";
-        } else {
-          ans += board[row][col];
-        }
+        ans += board[row][col];
+        // if (board[row][col] < -10){
+        //   ans += "Q";
+        // } else if (board[row][col] == 0){
+        //   ans += "_";
+        // } else {
+        //   ans += board[row][col];
+        // }
       }
       ans += "\n";
     }
@@ -122,36 +129,22 @@ public class QueenBoard {
   *@throws IllegalStateException when the board starts with any non-zero value
   */
   public boolean solve(){
-    addQueen(0,0);
-    System.out.println(toString());
-    addQueen(2,2);
-    System.out.println(toString());
-    removeQueen(2,2);
-    System.out.println(toString());
-    return true;
+    return solveH(0);
   }
 
-  public boolean solveH(int r, int c){
-    if (c == size){
+  public boolean solveH(int c){
+    if (c >= size){
       return true;
     }
-    if (r == size){
-      for (int row = 0; row < size; row++){
-        if (c == 0){
-          return false;
+    for (int row = 0; row < size; row++){
+      if (addQueen(row, c)){
+        if (solveH(c+1)){
+          return true;
         }
-        if (board[row][c-1] < -10){
-          removeQueen(row, c-1);
-          return solveH(row+1, c-1);
-        }
+        removeQueen(row, c);
       }
     }
-    if (board[r][c] == 0){
-      addQueen(r, c);
-      System.out.println(r + ", " + c);
-      return solveH(0, c+1);
-    }
-    return solveH(r+1, c);
+    return false;
   }
 
   /**
